@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iBeauty Parlour — Tailor-made Beauty & Aesthetic Solutions in Brunei</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ========================================
+       CSS VARIABLES — PURPLE & WHITE BRANDING
+    ======================================== */
+    :root {
+      --purple:       #6B4C9A;
+      --purple-light: #8B6BB9;
+      --purple-dark:  #4A3470;
+      --white:        #FFFFFF;
+      --off-white:    #F8F7FC;
+      --black:        #0A0A0A;
+      --dark:         #111111;
+      --dark2:        #1A1A1A;
+      --dark3:        #222222;
+      --mid:          #2E2E2E;
+      --muted:        #888888;
+      --light:        #F5F1EB;
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Jost', sans-serif;
+
+      --radius: 2px;
+      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ========================================
+       RESET & BASE
+    ======================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background-color: var(--black);
+      color: var(--light);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
+
+    /* ========================================
+       UTILITY
+    ======================================== */
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .purple { color: var(--purple); }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--purple);
+      display: block;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border: 1px solid var(--purple);
+      color: var(--purple);
+      background: transparent;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--purple);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+      z-index: 0;
+    }
+
+    .btn:hover::before { transform: scaleX(1); }
+    .btn:hover { color: var(--white); }
+    .btn span { position: relative; z-index: 1; }
+
+    .btn-solid {
+      background: var(--purple);
+      color: var(--white);
+    }
+    .btn-solid::before { background: var(--purple-dark); }
+    .btn-solid:hover { color: var(--white); }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: var(--purple);
+      margin: 20px 0;
+    }
+
+    .divider-center { margin: 20px auto; }
+
+    /* ========================================
+       PAGE LOAD ANIMATION
+    ======================================== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      animation: fadeUp 0.9s var(--transition) forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.30s; }
+    .delay-3 { animation-delay: 0.45s; }
+    .delay-4 { animation-delay: 0.60s; }
+    .delay-5 { animation-delay: 0.75s; }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ========================================
+       NAVIGATION
+    ======================================== */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background var(--transition), padding var(--transition), backdrop-filter var(--transition);
+    }
+
+    #navbar.scrolled {
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(12px);
+      padding: 18px 48px;
+      border-bottom: 1px solid rgba(107, 76, 154, 0.12);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--white);
+    }
+
+    .nav-logo span { color: var(--purple); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 44px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245, 241, 235, 0.7);
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--purple);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--purple); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-book {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border: 1px solid var(--purple);
+      color: var(--purple);
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .nav-book:hover { background: var(--purple); color: var(--white); }
+
+    /* Mobile hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--purple);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--black);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .mobile-nav.open { display: flex; opacity: 1; }
+
+    .mobile-nav a {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--light);
+      letter-spacing: 0.08em;
+      transition: color 0.3s;
+    }
+
+    .mobile-nav a:hover { color: var(--purple); }
+
+    /* ========================================
+       HERO SECTION
+    ======================================== */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 100px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.1) 40%, rgba(10,10,10,0.75) 100%),
+        linear-gradient(135deg, #3d2d5c 0%, #5a3d7a 40%, #2a1f3d 100%);
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Decorative grain overlay */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* Decorative purple line left */
+    .hero-line {
+      position: absolute;
+      left: 48px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 140px;
+      background: linear-gradient(to bottom, transparent, var(--purple), transparent);
+      opacity: 0.6;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+
+    .hero-tagline {
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--purple);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .hero-tagline::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--purple);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 8vw, 110px);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 36px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--purple-light);
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(245, 241, 235, 0.7);
+      max-width: 420px;
+      line-height: 1.8;
+      margin-bottom: 48px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      right: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(245, 241, 235, 0.4);
+      z-index: 2;
+    }
+
+    .scroll-indicator::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 56px;
+      background: linear-gradient(to bottom, rgba(107, 76, 154, 0.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* ========================================
+       ABOUT / INTRO STRIP
+    ======================================== */
+    #about {
+      background: var(--dark);
+      padding: 120px 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+      height: 560px;
+    }
+
+    .about-img-main {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 75%;
+      height: 85%;
+      background: var(--dark3);
+      background: linear-gradient(145deg, #4a3470, #6B4C9A);
+    }
+
+    .about-img-accent {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 55%;
+      height: 55%;
+      background: var(--dark2);
+      border: 1px solid rgba(107, 76, 154, 0.15);
+      background: linear-gradient(145deg, #3d2d5c, #5a3d7a);
+    }
+
+    .about-year-badge {
+      position: absolute;
+      bottom: 28%;
+      left: 68%;
+      transform: translate(-50%, 50%);
+      background: var(--purple);
+      color: var(--white);
+      width: 90px;
+      height: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      z-index: 3;
+    }
+
+    .about-year-badge .year-number {
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .about-year-badge .year-label {
+      font-family: var(--font-body);
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .about-text .section-label { margin-bottom: 20px; }
+
+    .about-heading {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .about-heading em { font-style: italic; color: var(--purple-light); }
+
+    .about-body {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 40px;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(107, 76, 154, 0.15);
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--purple);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ========================================
+       SERVICES SECTION
+    ======================================== */
+    #services {
+      background: var(--black);
+      padding: 120px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--white);
+      margin-top: 16px;
+    }
+
+    .section-heading em { font-style: italic; color: var(--purple-light); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(107, 76, 154, 0.1);
+    }
+
+    .service-card {
+      background: var(--dark);
+      padding: 52px 44px;
+      position: relative;
+      overflow: hidden;
+      transition: background var(--transition);
+      cursor: default;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--purple);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .service-card:hover { background: var(--dark2); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-number {
+      font-family: var(--font-display);
+      font-size: 56px;
+      font-weight: 300;
+      color: rgba(107, 76, 154, 0.08);
+      line-height: 1;
+      margin-bottom: 24px;
+      transition: color var(--transition);
+    }
+
+    .service-card:hover .service-number { color: rgba(107, 76, 154, 0.14); }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 24px;
+      color: var(--purple);
+      flex-shrink: 0;
+    }
+
+    .service-name {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .service-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .service-price {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--purple);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .service-price .from {
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ========================================
+       GALLERY SECTION
+    ======================================== */
+    #gallery {
+      background: var(--dark);
+      padding: 120px 0;
+    }
+
+    .gallery-intro {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: 12px;
+    }
+
+    .gallery-item {
+      background: var(--dark3);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-item:nth-child(1) { grid-column: span 7; grid-row: span 2; height: 480px; }
+    .gallery-item:nth-child(2) { grid-column: span 5; height: 232px; }
+    .gallery-item:nth-child(3) { grid-column: span 5; height: 232px; }
+    .gallery-item:nth-child(4) { grid-column: span 4; height: 300px; }
+    .gallery-item:nth-child(5) { grid-column: span 4; height: 300px; }
+    .gallery-item:nth-child(6) { grid-column: span 4; height: 300px; }
+
+    .gallery-item-inner {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #4a3470, #6B4C9A);
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .gallery-item:hover .gallery-item-inner { transform: scale(1.04); }
+
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.7), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+    }
+
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+    .gallery-item-label {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--white);
+      font-style: italic;
+    }
+
+    /* placeholder gradient colors for gallery items */
+    .gallery-item:nth-child(1) .gallery-item-inner { background: linear-gradient(145deg, #5a3d7a, #7a5a9a); }
+    .gallery-item:nth-child(2) .gallery-item-inner { background: linear-gradient(145deg, #4a3470, #6B4C9A); }
+    .gallery-item:nth-child(3) .gallery-item-inner { background: linear-gradient(145deg, #3d2d5c, #5a3d7a); }
+    .gallery-item:nth-child(4) .gallery-item-inner { background: linear-gradient(145deg, #6B4C9A, #8B6BB9); }
+    .gallery-item:nth-child(5) .gallery-item-inner { background: linear-gradient(145deg, #5a3d7a, #7a5a9a); }
+    .gallery-item:nth-child(6) .gallery-item-inner { background: linear-gradient(145deg, #4a3470, #6B4C9A); }
+
+    /* ========================================
+       TESTIMONIALS
+    ======================================== */
+    #testimonials {
+      background: var(--black);
+      padding: 120px 0;
+    }
+
+    .testimonials-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .testimonials-track {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-slide {
+      display: none;
+      text-align: center;
+    }
+
+    .testimonial-slide.active { display: block; }
+
+    .testimonial-quote {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--white);
+      margin-bottom: 40px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .testimonial-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--dark2);
+      border: 1px solid rgba(107, 76, 154, 0.3);
+      margin: 0 auto 16px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--purple);
+    }
+
+    .testimonial-name {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--purple);
+    }
+
+    .testimonial-role {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .star {
+      width: 14px;
+      height: 14px;
+      color: var(--purple);
+    }
+
+    .testimonial-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 56px;
+    }
+
+    .testimonial-btn {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(107, 76, 154, 0.3);
+      background: transparent;
+      color: var(--purple);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .testimonial-btn:hover {
+      background: var(--purple);
+      color: var(--white);
+      border-color: var(--purple);
+    }
+
+    .testimonial-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(107, 76, 154, 0.25);
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .dot.active {
+      background: var(--purple);
+      transform: scale(1.3);
+    }
+
+    /* ========================================
+       BOOKING / CTA SECTION
+    ======================================== */
+    #booking {
+      background: var(--dark);
+      padding: 120px 0;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .booking-text .section-label { margin-bottom: 20px; }
+
+    .booking-heading {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 60px);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .booking-heading em { font-style: italic; color: var(--purple-light); }
+
+    .booking-body {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 40px;
+    }
+
+    .booking-contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 44px;
+      padding-top: 44px;
+      border-top: 1px solid rgba(107, 76, 154, 0.15);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .contact-item-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(107, 76, 154, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--purple);
+      flex-shrink: 0;
+    }
+
+    /* Booking form */
+    .booking-form {
+      background: var(--dark2);
+      border: 1px solid rgba(107, 76, 154, 0.1);
+      padding: 52px 44px;
+    }
+
+    .form-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 36px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(107, 76, 154, 0.12);
+      color: var(--light);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      padding: 14px 18px;
+      transition: border-color var(--transition);
+      outline: none;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+
+    .form-select { cursor: pointer; }
+    .form-textarea { resize: vertical; min-height: 100px; }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--purple);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: rgba(136, 136, 136, 0.5);
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 8px;
+      justify-content: center;
+    }
+
+    /* ========================================
+       FOOTER
+    ======================================== */
+    #footer {
+      background: var(--black);
+      border-top: 1px solid rgba(107, 76, 154, 0.1);
+      padding: 80px 0 40px;
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand-name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .footer-brand-name span { color: var(--purple); }
+
+    .footer-tagline {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      max-width: 260px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(107, 76, 154, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 12px;
+      transition: border-color var(--transition), color var(--transition), background var(--transition);
+    }
+
+    .footer-social a:hover {
+      border-color: var(--purple);
+      color: var(--purple);
+    }
+
+    .footer-col-title {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 24px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--muted);
+      transition: color var(--transition);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links a:hover { color: var(--purple); }
+
+    .footer-hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--muted);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(107, 76, 154, 0.06);
+    }
+
+    .footer-hours-row span:first-child { color: rgba(245, 241, 235, 0.6); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 40px;
+      border-top: 1px solid rgba(107, 76, 154, 0.08);
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(136, 136, 136, 0.5);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(136, 136, 136, 0.5);
+      letter-spacing: 0.05em;
+      transition: color var(--transition);
+    }
+
+    .footer-bottom-links a:hover { color: var(--purple); }
+
+    /* WhatsApp float button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 99;
+      width: 56px;
+      height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
+    }
+
+    .whatsapp-float svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
+    }
+
+    /* ========================================
+       RESPONSIVE
+    ======================================== */
+    @media (max-width: 1024px) {
+      .container { padding: 0 32px; }
+      #navbar { padding: 24px 32px; }
+      #navbar.scrolled { padding: 16px 32px; }
+      .about-grid,
+      .booking-grid { grid-template-columns: 1fr; gap: 56px; }
+      .about-visual { height: 400px; order: -1; }
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0 24px; }
+      #navbar { padding: 20px 24px; }
+      #navbar.scrolled { padding: 14px 24px; }
+      .nav-links, .nav-book { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero-line { display: none; }
+      .scroll-indicator { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:nth-child(1) { grid-column: span 2; height: 300px; }
+      .gallery-item:nth-child(2),
+      .gallery-item:nth-child(3) { grid-column: span 1; height: 200px; }
+      .gallery-item:nth-child(4),
+      .gallery-item:nth-child(5),
+      .gallery-item:nth-child(6) { grid-column: span 2; height: 220px; }
+      .about-stats { grid-template-columns: repeat(3, 1fr); }
+      .footer-main { grid-template-columns: 1fr; gap: 36px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .booking-form { padding: 36px 28px; }
+      #about, #services, #gallery, #testimonials, #booking { padding: 80px 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">i<span>Beauty</span></a>
+
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#booking">Contact</a></li>
+    </ul>
+
+    <a href="https://wa.me/6738353540" target="_blank" class="nav-book">Book Now</a>
+
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#gallery" class="mobile-link">Gallery</a>
+    <a href="#testimonials" class="mobile-link">Reviews</a>
+    <a href="#booking" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- ==================== HERO ==================== -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-line"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tagline fade-in">
+          Tailor-made Beauty & Aesthetic Solutions
+        </div>
+
+        <h1 class="hero-title fade-in delay-1">
+          iBeauty<br>
+          <em>Parlour</em>
+        </h1>
+
+        <p class="hero-desc fade-in delay-2">
+          Experience bespoke beauty and aesthetic treatments for ladies and gentlemen. Located in Bandar Seri Begawan, Brunei, we deliver excellence in every service.
+        </p>
+
+        <div class="hero-ctas fade-in delay-3">
+          <a href="#booking" class="btn btn-solid"><span>Book Appointment</span></a>
+          <a href="#services" class="btn"><span>View Services</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">Scroll</div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-visual reveal">
+          <div class="about-img-main"></div>
+          <div class="about-img-accent"></div>
+          <div class="about-year-badge">
+            <span class="year-number">5+</span>
+            <span class="year-label">Years</span>
+          </div>
+        </div>
+
+        <div class="about-text reveal">
+          <span class="section-label">Our Story</span>
+          <h2 class="about-heading">
+            More Than a Salon —<br>
+            <em>A Sanctuary</em>
+          </h2>
+          <div class="divider"></div>
+          <p class="about-body">
+            iBeauty Parlour has been the premier destination for discerning clients in Bandar Seri Begawan who demand the very best in beauty and aesthetic services. Our team of skilled professionals combines artistry with precision, creating transformations that are as timeless as they are breathtaking.
+          </p>
+          <p class="about-body">
+            Every visit is a personalised experience — from the moment you arrive to the final reveal. We use only the world's most prestigious products, and our techniques are constantly refined to reflect the latest in global beauty innovation. Whether you're seeking facial treatments, hair styling, spa services, or complete aesthetic solutions, we're here to exceed your expectations.
+          </p>
+          <a href="#services" class="btn"><span>Explore Services</span></a>
+
+          <div class="about-stats">
+            <div>
+              <span class="stat-number">800+</span>
+              <span class="stat-label">Happy Clients</span>
+            </div>
+            <div>
+              <span class="stat-number">5+</span>
+              <span class="stat-label">Years Experience</span>
+            </div>
+            <div>
+              <span class="stat-number">99%</span>
+              <span class="stat-label">Satisfaction Rate</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SERVICES ==================== -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">What We Offer</span>
+        <h2 class="section-heading">Our <em>Signature</em> Services</h2>
+        <div class="divider divider-center"></div>
+      </div>
+
+      <div class="services-grid">
+
+        <div class="service-card reveal">
+          <div class="service-number">01</div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 3C8.5 3 6 5 6 8c0 2 1 3.5 2.5 4.5L12 21l3.5-8.5C17 11.5 18 10 18 8c0-3-2.5-5-6-5z"/>
+            <circle cx="12" cy="8" r="2"/>
+          </svg>
+          <h3 class="service-name">Hair Styling</h3>
+          <p class="service-desc">From precision cuts to transformative colour treatments, our master stylists create looks tailored to your unique beauty and personality.</p>
+          <div class="service-price"><span class="from">From</span> BND 50</div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-number">02</div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M9 12c0-1.7 1.3-3 3-3s3 1.3 3 3-1.3 3-3 3"/>
+            <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+          </svg>
+          <h3 class="service-name">Facial Treatments</h3>
+          <p class="service-desc">Luxurious facial treatments and advanced skincare protocols designed to reveal your natural radiance and rejuvenate your skin.</p>
+          <div class="service-price"><span class="from">From</span> BND 80</div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-number">03</div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 3v12M18 3v12M12 6v12"/>
+            <path d="M4 15c1.3 1.3 3.3 2 5 2s3.7-.7 5-2 3.7-2 5-2M4 9c1.3 1.3 3.3 2 5 2s3.7-.7 5-2 3.7-2 5-2"/>
+          </svg>
+          <h3 class="service-name">Nail Art</h3>
+          <p class="service-desc">Meticulous nail care and artistry — from classic manicures to intricate designs using premium products and expert techniques.</p>
+          <div class="service-price"><span class="from">From</span> BND 40</div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-number">04</div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 3L3 9l9 13 9-13-6-6z"/>
+            <path d="M3 9h18M12 3v10"/>
+          </svg>
+          <h3 class="service-name">Beauty Treatments</h3>
+          <p class="service-desc">Complete beauty enhancement services including makeup artistry, threading, waxing, and specialised aesthetic treatments for all occasions.</p>
+          <div class="service-price"><span class="from">From</span> BND 35</div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-number">05</div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+          <h3 class="service-name">Spa Treatments</h3>
+          <p class="service-desc">Indulgent body treatments and relaxation rituals that restore, renew, and deeply revitalise your mind, body, and spirit.</p>
+          <div class="service-price"><span class="from">From</span> BND 100</div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-number">06</div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <h3 class="service-name">Makeup Artistry</h3>
+          <p class="service-desc">Professional makeup services for all occasions — from subtle daytime looks to dramatic evening glamour and special event styling.</p>
+          <div class="service-price"><span class="from">From</span> BND 60</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GALLERY ==================== -->
+  <section id="gallery">
+    <div class="container">
+      <div class="gallery-intro reveal">
+        <div>
+          <span class="section-label">Our Work</span>
+          <h2 class="section-heading" style="margin-top:12px;">The <em>Portfolio</em></h2>
+        </div>
+        <a href="#booking" class="btn"><span>Book Your Look</span></a>
+      </div>
+
+      <div class="gallery-grid reveal">
+        <div class="gallery-item">
+          <div class="gallery-item-inner"></div>
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-label">Hair Transformation</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-item-inner"></div>
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-label">Facial Glow</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-item-inner"></div>
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-label">Bridal Beauty</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-item-inner"></div>
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-label">Skin Radiance</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-item-inner"></div>
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-label">Nail Artistry</span>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-item-inner"></div>
+          <div class="gallery-item-overlay">
+            <span class="gallery-item-label">Makeup Artistry</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIALS ==================== -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Client Stories</span>
+        <h2 class="section-heading">What They <em>Say</em></h2>
+        <div class="divider divider-center"></div>
+      </div>
+
+      <div class="testimonials-inner">
+        <div class="testimonials-track reveal" id="testimonialsTrack">
+
+          <div class="testimonial-slide active">
+            <div class="testimonial-stars">
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote class="testimonial-quote">
+              "Absolutely stunning results every single time. The team at iBeauty Parlour truly understands luxury — from the ambiance to the attention to detail, I leave feeling like a completely new person."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">S</div>
+              <span class="testimonial-name">Sarah Al-Mansouri</span>
+              <span class="testimonial-role">Loyal Client · 3 Years</span>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <div class="testimonial-stars">
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote class="testimonial-quote">
+              "I came for my bridal package and I cannot express how perfect everything was. They exceeded every expectation. My hair and makeup looked flawless all day."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">L</div>
+              <span class="testimonial-name">Layla Karim</span>
+              <span class="testimonial-role">Bridal Client</span>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <div class="testimonial-stars">
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote class="testimonial-quote">
+              "The skincare facial here is unlike anything I have experienced. Three sessions in and the difference is genuinely visible. Worth every penny — this is true luxury."
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">N</div>
+              <span class="testimonial-name">Nour Hassan</span>
+              <span class="testimonial-role">Regular Client · 2 Years</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="testimonial-controls">
+          <button class="testimonial-btn" id="prevBtn" aria-label="Previous">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="testimonial-dots" id="testimonialDots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+          </div>
+          <button class="testimonial-btn" id="nextBtn" aria-label="Next">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BOOKING / CONTACT ==================== -->
+  <section id="booking">
+    <div class="container">
+      <div class="booking-grid">
+
+        <div class="booking-text reveal">
+          <span class="section-label">Reserve Your Experience</span>
+          <h2 class="booking-heading">
+            Book Your<br>
+            <em>Appointment</em>
+          </h2>
+          <div class="divider"></div>
+          <p class="booking-body">
+            Ready to experience the difference? Book your appointment via WhatsApp or fill out our contact form. We'll confirm your slot within the hour and look forward to welcoming you.
+          </p>
+          <a href="https://wa.me/6738353540" target="_blank" class="btn btn-solid"><span>WhatsApp Us Now</span></a>
+
+          <div class="booking-contact-items">
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <span>Bandar Seri Begawan, Brunei</span>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l.8-.8a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <span>+673 835 3540</span>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <span>@ibeautyparlour</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-form reveal">
+          <div class="form-title">Request an Appointment</div>
+
+          <form id="bookingForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-input" placeholder="Your name" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone / WhatsApp</label>
+                <input type="tel" class="form-input" placeholder="+673 XXXX XXXX" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Service</label>
+              <select class="form-select form-input">
+                <option value="" disabled selected>Select a service</option>
+                <option>Hair Styling</option>
+                <option>Facial Treatments</option>
+                <option>Nail Art</option>
+                <option>Beauty Treatments</option>
+                <option>Spa Treatments</option>
+                <option>Makeup Artistry</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Preferred Date</label>
+                <input type="date" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Preferred Time</label>
+                <select class="form-select form-input">
+                  <option value="" disabled selected>Select time</option>
+                  <option>9:00 AM</option>
+                  <option>10:00 AM</option>
+                  <option>11:00 AM</option>
+                  <option>12:00 PM</option>
+                  <option>1:00 PM</option>
+                  <option>2:00 PM</option>
+                  <option>3:00 PM</option>
+                  <option>4:00 PM</option>
+                  <option>5:00 PM</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Additional Notes</label>
+              <textarea class="form-textarea" placeholder="Any special requests or details..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-solid form-submit">
+              <span>Confirm Booking</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-main">
+
+        <div>
+          <div class="footer-brand-name">i<span>Beauty</span></div>
+          <p class="footer-tagline">Tailor-made beauty and aesthetic solutions for ladies and gentlemen in Brunei.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/ibeautyparlour" target="_blank" aria-label="Instagram">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://wa.me/6738353540" target="_blank" aria-label="WhatsApp">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <ul class="footer-links">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#booking">Book Now</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Services</div>
+          <ul class="footer-links">
+            <li><a href="#services">Hair Styling</a></li>
+            <li><a href="#services">Facial Treatments</a></li>
+            <li><a href="#services">Nail Art</a></li>
+            <li><a href="#services">Beauty Treatments</a></li>
+            <li><a href="#services">Spa Treatments</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Opening Hours</div>
+          <div class="footer-hours-row"><span>Mon – Fri</span><span>9am – 8pm</span></div>
+          <div class="footer-hours-row"><span>Saturday</span><span>9am – 6pm</span></div>
+          <div class="footer-hours-row"><span>Sunday</span><span>11am – 5pm</span></div>
+          <div style="margin-top:20px;">
+            <a href="https://wa.me/6738353540" target="_blank" class="btn" style="font-size:9px; padding:12px 22px;">
+              <span>Book on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 iBeauty Parlour. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/6738353540" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+    </svg>
+  </a>
+
+  <!-- JavaScript -->
+  <script>
+    // ==================== NAVBAR SCROLL EFFECT ====================
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // ==================== MOBILE MENU ====================
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+      });
+    });
+
+    // ==================== SCROLL REVEAL ====================
+    const reveals = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(reveal => observer.observe(reveal));
+
+    // ==================== TESTIMONIALS CAROUSEL ====================
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+    }
+
+    prevBtn.addEventListener('click', () => {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentSlide = index;
+        showSlide(currentSlide);
+      });
+    });
+
+    // ==================== BOOKING FORM SUBMISSION ====================
+    const bookingForm = document.getElementById('bookingForm');
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(bookingForm);
+      const name = formData.get('name') || 'Guest';
+      alert(`Thank you, ${name}! Your booking request has been received. We'll contact you shortly via WhatsApp.`);
+      bookingForm.reset();
+    });
+  </script>
+
+</body>
+</html>
